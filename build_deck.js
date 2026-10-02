@@ -122,7 +122,7 @@ async function main() {
     const s = newSlide("Executive summary", "MONIT offers a validated, Wi-Fi-ready smart diaper system deployable across all three hospitals", "Source: ALPS RFP KTPH-RFP-26-165-MJ; MONIT analysis. Items in amber require MONIT inputs.",
       "Key messages. Each row should be validated by MONIT product, clinical and operations leads before the meeting.");
     const rows = [
-      ["1", "Proven technology", "Clinically validated sensor with measured detection performance; certified to the standards ALPS expects (BizSAFE, ISO, IMDA, HSA)."],
+      ["1", "Proven technology", "Clinically validated sensor with measured detection performance; certified or certifying to the standards ALPS expects (BizSAFE, ISO incl. 27001/27017/27018, IMDA, HSA)."],
       ["2", "Complete, integrated system", "Sensor → relay → hospital Wi-Fi → cloud → nurse dashboard, delivered as one fully integrated system as the RFP requires."],
       ["3", "Sized to your wards", "Relay quantities derived per ward from the floor plans of KTPH, Woodlands Health and TTSH using a transparent coverage-based method."],
       ["4", "Zero-touch Wi-Fi operations", "Hospital Wi-Fi credentials are entered once; they survive power outages and firmware upgrades without re-keying."],
@@ -196,18 +196,20 @@ async function main() {
 
   // ================= 5. CERTIFICATIONS =================
   {
-    const s = newSlide("2 · Industry certifications and standards", "Our certifications cover safety, quality, security and the network-device rules for hospital Wi-Fi", "Source: MONIT certificates; RFP Consent Form (HSA registration requirement); Section 1 clause 19 (ISO14000/OSHA). Attach copies in the proposal.",
-      "Provide certificate numbers, issuing bodies and expiry dates, and append copies. Note that ALPS is ISO14000 and OSHA certified and expects vendors to follow its environmental and safety requirements. The consent form requires medical devices to be HSA-registered - confirm the device class and registration for the sensor.");
+    const s = newSlide("2 · Industry certifications and standards", "Our certifications, plus ISO 27001/27017/27018 now planned, cover safety, quality and information security", "Source: MONIT certificates and certification plan; RFP Consent Form (HSA registration requirement); Section 1 clause 19 (ISO14000/OSHA). Attach copies in the proposal.",
+      "ISO/IEC 27001, 27017 and 27018 are planned (not yet certified) - state the certification body, audit stage and target date, and do not describe them as held until issued. Provide certificate numbers, issuing bodies and expiry dates for the other items, and append copies. Note that ALPS is ISO14000 and OSHA certified and expects vendors to follow its environmental and safety requirements. The consent form requires medical devices to be HSA-registered - confirm the device class and registration for the sensor.");
     table(s, [
       ["Standard / certification", "Why it matters for this RFP", "Status / certificate no.", "Valid until"],
       ["BizSAFE (level 3 / Star)", "Contractor safety for on-site installation in hospitals", "[INPUT REQUIRED] level & cert no.", "[INPUT]"],
       ["ISO 9001 – Quality management", "Consistent delivery, QA and service processes", "[INPUT REQUIRED]", "[INPUT]"],
       ["ISO 13485 – Medical devices QMS", "Design & manufacture of the sensor as a medical device", "[INPUT REQUIRED]", "[INPUT]"],
-      ["ISO 27001 – Information security", "Protects patient-related data in cloud and dashboard", "[INPUT REQUIRED]", "[INPUT]"],
+      ["ISO/IEC 27001 – Information security (ISMS)", "Systematic protection of patient-related data across platform and dashboard", "Certification planned — in progress", "Target: [INPUT]"],
+      ["ISO/IEC 27017 – Cloud security controls", "Security controls for the cloud platform hosting hospital data", "Certification planned — in progress", "Target: [INPUT]"],
+      ["ISO/IEC 27018 – PII protection in public cloud", "Safeguards personal data processed in the cloud; supports PDPA compliance", "Certification planned — in progress", "Target: [INPUT]"],
       ["ISO 14001 / ISO 45001", "Aligns with ALPS's ISO14000 / OSHA requirements", "[INPUT REQUIRED]", "[INPUT]"],
       ["IMDA – network devices (relay)", "Relay / Wi-Fi radio equipment lawfully connected in Singapore", "[INPUT REQUIRED] registration / label no.", "[INPUT]"],
       ["HSA – medical device registration", "RFP requires registration for Class B/C/D (before 1 May 2010) and Class A (before 1 May 2011) — confirm applicability", "[INPUT REQUIRED] class & reg. no.", "[INPUT]"],
-    ], 0.6, 1.85, 12.13, [3.3, 4.9, 2.7, 1.23], { rowH: 0.56, fs: 11 });
+    ], 0.6, 1.8, 12.13, [3.5, 4.7, 2.7, 1.23], { rowH: 0.46, fs: 10.5 });
   }
 
   // ================= 6. CONCEPT =================

@@ -195,10 +195,10 @@ async function main() {
       ["Clinically validated detection", "Validation studies and measured detection performance", "Study reports", "8"],
       ["Software and dashboard", "Ward dashboard, alerts, reports; iOS/Android app; PDPA-aligned", "Live demo", "9"],
       ["Maintenance and support", "12-month maintenance, 24-hr hotline, 99% uptime, 7-year spares", "Master Agreement Sch. 2/3", "10–11"],
-      ["Approach and deployment", "Floor-plan-based plan, acceptance steps, relay count per ward", "Ward table, survey", "14–18"],
-      ["Timeline and lead times", "Milestones from Letter of Award to Final Acceptance", "Gantt chart", "19"],
-      ["References and sustainability", "Comparable deployments; four sustainability criteria answered", "Referee contacts", "20–21"],
-      ["Wi-Fi connectivity and password", "Relay setup once; settings survive outages and upgrades", "Live relay demo", "22–24"],
+      ["Approach and deployment", "Floor-plan-based plan, acceptance steps, relay count per ward", "Ward table, survey", "14–19"],
+      ["Timeline and lead times", "Milestones from Letter of Award to Final Acceptance", "Gantt chart", "20"],
+      ["References and sustainability", "Comparable deployments; four sustainability criteria answered", "Referee contacts", "21–22"],
+      ["Wi-Fi connectivity and password", "Relay setup once; settings survive outages and upgrades", "Live relay demo", "23–25"],
     ], 0.6, 1.85, 12.13, [3.2, 5.6, 2.4, 0.93], { rowH: 0.52, fs: 11 });
   }
 
@@ -421,24 +421,47 @@ async function main() {
 
   // ================= 13. DEPLOYMENT PER HOSPITAL =================
   {
-    const s = newSlide("4 · Understanding of the project", "Deployment is planned ward by ward from each hospital's floor plan, using the same proven pattern at all three sites", "Source: Hospital floor plans provided by ALPS at the site briefings; MONIT deployment pattern.",
-      "Insert each hospital's floor plan and mark relay positions; the floor plans were not in the files supplied for this draft. The deployment principles are MONIT's proposed practice (not from the attachments).");
-    const hs = ["Khoo Teck Puat Hospital", "Woodlands Health", "Tan Tock Seng Hospital"];
+    const s = newSlide("4 · Understanding of the project", "Deployment is planned ward by ward around each hospital's stated preferences, using the same proven pattern at all three sites", "Source: NHG requirement table for KTPH, Woodlands Health (WH) and TTSH; MONIT deployment pattern. Floor plans to follow from NHG.",
+      "Requirements are read from NHG's table (image supplied by the user). WH sensor count is not stated in the table: 35 is derived as 135 (contract draft total) - 60 (KTPH) - 40 (TTSH). The MONIT proposals in the teal boxes are not from the attachments; engineering must confirm mounting and power options. Michelle (NHG) will share the ward layouts.");
+    const hs = [
+      ["Khoo Teck Puat Hospital", "60 sensors", ["Wards: Tower D7, Tower B (acute stroke), Tower D8", "Preferred: ceiling-mounted gateways", "Signal amplifiers to specific power requirements", "Barcode scanner at monitoring station"], "Ceiling-mounted gateways at the corridor side of each bay cluster, powered to KTPH's power specification; barcode scanner at the monitoring-station dashboard."],
+      ["Woodlands Health", "35 sensors (derived)", ["Wards: A41, W62, W74", "Minimal, hidden behind cabinet or wall; portable; not on ceiling", "No power points along the A41 corridor", "Dashboard and Zebra DS22 scanner at monitoring station; no tablet"], "Portable plug-in gateways behind cabinets or at wall sockets inside bays and rooms; trial one gateway for four cubicles in W62 before rollout."],
+      ["Tan Tock Seng Hospital", "40 sensors", ["Wards: 5A, 7C, 13B, 5H", "Wall power-point plug-in; no drilling; minimal infrastructure", "Gym area needs no gateway; 13B corridor has no wall power", "Dashboard at nursing monitoring station"], "Plug-in gateways at existing wall sockets with no drilling or new cabling; in 13B, gateways inside or beside single rooms where sockets exist."],
+    ];
     for (let i = 0; i < 3; i++) {
       const x = 0.6 + i * 4.1;
       s.addShape(pres.shapes.RECTANGLE, { x, y: 1.85, w: 3.95, h: 0.5, fill: { color: C.text2 }, line: { type: "none" } });
-      T(s, hs[i], { x: x + 0.15, y: 1.85, w: 3.7, h: 0.5, fontSize: 14, bold: true, color: C.background1, valign: "middle" });
-      inp(s, x, 2.45, 3.95, 1.75, "Floor plan with ward boundaries and relay positions marked.", { fs: 11 });
-      T(s, bullets(["Wards in scope: [INPUT]", "Beds / sensors in scope: [INPUT]", "Relays: see ward table"]), { x, y: 4.3, w: 3.95, h: 0.95, fontSize: 12 });
+      T(s, hs[i][0], { x: x + 0.15, y: 1.85, w: 2.45, h: 0.5, fontSize: 13, bold: true, color: C.background1, valign: "middle" });
+      T(s, hs[i][1], { x: x + 2.5, y: 1.85, w: 1.35, h: 0.5, fontSize: 10, color: "CADCFC", valign: "middle", align: "right" });
+      s.addShape(pres.shapes.RECTANGLE, { x, y: 2.4, w: 3.95, h: 1.75, fill: { color: C.background2 }, line: { type: "none" } });
+      T(s, bullets(hs[i][2]), { x: x + 0.15, y: 2.5, w: 3.65, h: 1.6, fontSize: 10.5 });
+      prop(s, x, 4.25, 3.95, 1.3, hs[i][3], { fs: 10.5 });
+      inp(s, x, 5.65, 3.95, 0.85, "Ward layout / floor plan from NHG with gateway positions marked.", { fs: 10 });
     }
-    prop(s, 0.6, 5.35, 12.13, 1.25, "Deployment pattern: one relay per bed cluster at a powered outlet within BLE range of its sensors; relay positions checked against 2.4 GHz Wi-Fi coverage; dashboard at each nurse station; pilot ward first, then ward-by-ward rollout outside medication and meal rounds; infection-control and access rules followed per hospital.", { fs: 12 });
+  }
+  // ================= 13B. HOSPITAL REQUIREMENTS =================
+  {
+    const s = newSlide("4 · Understanding of the project", "MONIT meets each hospital's stated preferences for mounting, power and nurse-station workflow", "Source: NHG requirement table; MONIT proposed responses. Zebra DS22 scanner integration to be confirmed by MONIT engineering.",
+      "Every row comes from NHG's table. Responses are PROPOSED (not evidenced in the attachments). Barcode-scanner support is an explicit ask from KTPH and WH - confirm the dashboard accepts scanner input (Zebra DS22 is a USB/Bluetooth scanner). Where corridor power points are absent (WH A41, TTSH 13B) gateways must sit where sockets exist, which can push counts toward the conservative scenario.");
+    table(s, [
+      ["Hospital requirement", "Hospital", "MONIT response"],
+      ["Web-based dashboard", "All three", "Included: ward dashboard on the monitoring station (slide 9)"],
+      ["Barcode scanner at monitoring station", "KTPH, WH (Zebra DS22)", "[PROPOSED] Scanner input to identify patient and bed on the dashboard"],
+      ["No tablet", "WH", "[PROPOSED] Dashboard runs on the monitoring-station PC; mobile app optional"],
+      ["Ceiling mount, specific power requirements", "KTPH", "[PROPOSED] Ceiling-mounted gateways powered to KTPH's specification"],
+      ["Hidden behind cabinet or wall; portable", "WH", "[PROPOSED] Plug-in gateways behind cabinets or at wall sockets; not on ceiling"],
+      ["Wall plug-in; no drilling; minimal cost", "TTSH", "[PROPOSED] Plug-in at existing sockets; no drilling or new cabling"],
+      ["No power points along corridor", "WH A41, TTSH 13B", "[PROPOSED] Gateways placed where sockets exist, inside bays or rooms"],
+      ["Gym area needs no gateway", "TTSH 5A", "No gateway planned"],
+      ["Sensors and gateways proposed as one package", "All three", "Package quantities on the next slides, per ward"],
+    ], 0.6, 1.8, 12.13, [3.9, 2.3, 5.93], { rowH: 0.45, fs: 10 });
   }
 
   // ================= 14. RELAY SIZING METHOD =================
   {
-    const s = newSlide("4 · Understanding of the project", "Relay quantities follow a transparent, coverage-based method that is verified by an on-site survey", "Source: Master Agreement Schedule 3 (draft quantities: 135 sensors, 53 relays; relay specification); MONIT sizing method.",
-      "MANDATORY RFP ITEM. Control totals come from Schedule 3: 135 sensor units and 53 relays across KTPH, TTSH and WH, i.e. about 2.5 sensors per relay (derived - confirm with engineering; it assumes 135 sensors equals the monitored beds). Coverage radius and redundancy policy are not in the attachments and must be supplied.");
-    const st = [["1", "Map", "Mark beds, wall types and powered outlets on each ward floor plan"], ["2", "Cover", "Place relays so every sensor is within BLE coverage radius"], ["3", "Check capacity", "Keep sensors per relay within the planning density"], ["4", "Add resilience", "Add spare relays for critical coverage gaps"], ["5", "Verify", "Confirm 2.4 GHz Wi-Fi coverage and outlet at each position"]];
+    const s = newSlide("4 · Understanding of the project", "BLE gateway quantities follow a coverage rule based on cubicles and single rooms, because sensors are pooled across beds", "Source: NHG requirement table (ward layouts, WH W62 trial note, sensor totals 60 / 40); MONIT sizing method. Ratios to be validated by the on-site survey and pilot ward.",
+      "MANDATORY RFP ITEM. Why not sensors per relay: KTPH has about 133 beds but 60 sensors, so sensors are pooled and moved - coverage of the bed areas, not sensor count, sets the gateway number. Base rule: 1 gateway per 4 cubicles (from the WH W62 note: one BLE covers 4 cubicles) and 1 per 2 adjacent single rooms (assumption: closed or double doors attenuate BLE). Lean = 1 per 4 cubicles and 1 per 4 single rooms (31); Base (40, +4 spare = 44); Conservative = 1 per 2 cubicles and 1 per 2 single rooms (50). The contract draft lists 53 gateways, close to Conservative plus spares - reconcile with the Section 3 price schedule.");
+    const st = [["1", "Map", "List cubicles, single rooms and corridors from each ward layout"], ["2", "Cover", "One gateway per four cubicles; one per two adjacent single rooms"], ["3", "Check power", "Confirm a socket or ceiling supply at each position"], ["4", "Add spares", "10% spare gateways, shown as a separate line"], ["5", "Verify", "Survey and pilot ward confirm coverage before rollout"]];
     st.forEach((p, i) => {
       const x = 0.6 + i * 2.45;
       s.addShape(pres.shapes.OVAL, { x: x + 0.05, y: 1.9, w: 0.55, h: 0.55, fill: { color: i % 2 ? C.accent1 : C.text2 }, line: { type: "none" } });
@@ -448,33 +471,45 @@ async function main() {
     });
     s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 3.85, w: 6.2, h: 2.7, fill: { color: C.text2 }, line: { type: "none" } });
     T(s, "Sizing rule (per ward)", { x: 0.85, y: 4.0, w: 5.7, h: 0.3, fontSize: 13, bold: true, color: "CADCFC" });
-    T(s, "Relays = MAX( ⌈ Sensors ÷ Sensors per relay ⌉ ,  ⌈ Ward area ÷ Coverage area per relay ⌉ )  +  Spares", { x: 0.85, y: 4.4, w: 5.7, h: 1.1, fontSize: 15, bold: true, color: C.background1, fontFace: "Cambria" });
-    T(s, "Control totals (contract draft): 135 sensors · 53 relays across KTPH, Woodlands Health and TTSH.", { x: 0.85, y: 5.6, w: 5.7, h: 0.8, fontSize: 12, color: "CADCFC" });
+    T(s, "Gateways = ⌈ Cubicles ÷ 4 ⌉ + ⌈ Single rooms ÷ 2 ⌉   (+ 10% spare overall)", { x: 0.85, y: 4.4, w: 5.7, h: 0.9, fontSize: 16, bold: true, color: C.background1, fontFace: "Cambria" });
+    T(s, "Sensors (KTPH 60 · WH 35 · TTSH 40) are pooled and moved between beds, so bed-area coverage, not sensor count, sets the gateway number.", { x: 0.85, y: 5.45, w: 5.7, h: 0.95, fontSize: 12, color: "CADCFC" });
     table(s, [
-      ["Design input", "Value"],
-      ["Sensors per relay (planning density)", "≈ 2.5 (135 ÷ 53), to be verified by survey"],
-      ["Relay power", "5 V USB-A, always-on: one outlet per relay"],
-      ["Relay uplink", "Wi-Fi 2.4 GHz (5 GHz not supported)"],
-      ["BLE coverage radius per relay", "[INPUT REQUIRED]"],
-      ["Spare relay policy", "[INPUT REQUIRED]"],
-    ], 7.1, 3.85, 5.63, [2.9, 2.73], { rowH: 0.45, fs: 10.5 });
+      ["Scenario", "Rule", "Total"],
+      ["Lean", "1 per 4 cubicles; 1 per 4 single rooms", "31"],
+      ["Base (proposed)", "1 per 4 cubicles; 1 per 2 single rooms", "40 (+4 spare = 44)"],
+      ["Conservative", "1 per 2 cubicles; 1 per 2 single rooms", "50"],
+    ], 7.1, 3.85, 5.63, [1.4, 2.8, 1.43], { rowH: 0.5, fs: 10.5 });
+    T(s, "Basis: NHG's WH W62 note that one BLE gateway can cover four cubicles; single-room ratio to be validated in the pilot ward.", { x: 7.1, y: 6.0, w: 5.63, h: 0.55, fontSize: 10.5, color: C.accent4 });
   }
 
   // ================= 15. RELAY COUNT TABLE =================
   {
-    const s = newSlide("4 · Understanding of the project", "Proposed relay quantity by hospital and ward (mandatory RFP response)", "Source: MONIT calculation from hospital floor plans; control totals from Master Agreement Schedule 3 (draft). Ward quantities completed once floor plans are in hand.",
-      "MANDATORY: the RFP requires the proposed number of relay devices per ward. Counts are intentionally blank because the floor plans were not provided; do not invent per-ward numbers. Fill each ward with the sizing rule and reconcile the total to the price schedule in Section 3.");
+    const s = newSlide("4 · Understanding of the project", "Proposed BLE gateway quantity by hospital and ward: 44 gateways in total, including 10% spares (mandatory RFP response)", "Source: MONIT calculation from NHG's ward descriptions; est. = assumed pending the ward layouts NHG will share.",
+      "MANDATORY: gateways per ward from NHG's table. Base counts: KTPH 3 + 4 + 3 = 10; WH 4 + 2 + 3 = 9; TTSH 3 + 3 + 8 + 7 = 21; total 40 + 4 spares = 44. Assumed inputs: TTSH 5A and 7C have 5 cubicles each (counts not given); WH W62 has 4 cubicles (from the trial note); KTPH Tower B has 3 single rooms (the table text reads 'v3'). Contract draft Schedule 3 lists 53 relays - reconcile with the price schedule. Michelle (NHG) will revise the tender document to allow editing of the BLE quantities.");
     table(s, [
-      ["Hospital", "Ward / area", "Sensors", "Relays (capacity)", "Relays (coverage)", "Proposed relays", "Outlet and 2.4 GHz confirmed"],
-      ["KTPH", "[INPUT REQUIRED] Ward 1", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["KTPH", "[INPUT REQUIRED] Ward 2", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["Woodlands Health", "[INPUT REQUIRED] Ward 1", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["Woodlands Health", "[INPUT REQUIRED] Ward 2", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["TTSH", "[INPUT REQUIRED] Ward 1", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["TTSH", "[INPUT REQUIRED] Ward 2", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-      ["Total (contract draft)", "", "135", "[ ]", "[ ]", "53", ""],
-    ], 0.6, 1.85, 12.13, [1.9, 2.9, 1.0, 1.55, 1.55, 1.5, 1.73], { rowH: 0.46, fs: 10.5 });
-    prop(s, 0.6, 5.75, 12.13, 0.85, "Spare relays shown as a separate line (not hidden in ward counts) so the quantity reconciles with the price schedule; ward rows added for every ward on the three floor plans.", { fs: 11 });
+      ["Hospital · ward", "Single rooms", "Cubicles (beds)", "Base", "Range"],
+      ["KTPH · Tower D7", "2", "8 (64)", "3", "3–5"],
+      ["KTPH · Tower B (acute stroke)", "3", "6 (30)", "4", "3–5"],
+      ["KTPH · Tower D8", "2", "8 (32)", "3", "3–5"],
+      ["WH · A41", "4", "6 (36)", "4", "3–5"],
+      ["WH · W62", "2", "[INPUT] 4 est.", "2", "2–3"],
+      ["WH · W74", "6", "–", "3", "2–3"],
+      ["TTSH · 5A", "2", "[INPUT] 5 est. (6 beds each)", "3", "3–4"],
+      ["TTSH · 7C", "2", "[INPUT] 5 est. (5 beds each)", "3", "3–4"],
+      ["TTSH · 13B", "15", "–", "8", "4–8"],
+      ["TTSH · 5H", "10", "5 (25)", "7", "5–8"],
+    ], 0.6, 1.85, 8.55, [2.75, 1.2, 2.5, 0.9, 1.2], { rowH: 0.37, fs: 10 });
+    table(s, [
+      ["Summary", "Base", "Range"],
+      ["KTPH", "10", "9–15"],
+      ["WH", "9", "7–11"],
+      ["TTSH", "21", "15–24"],
+      ["Total", "40", "31–50"],
+      ["Spares (10%)", "4", "—"],
+      ["Proposed", "44", "—"],
+    ], 9.4, 1.85, 3.33, [1.5, 0.8, 1.03], { rowH: 0.42, fs: 10.5 });
+    inp(s, 9.4, 4.95, 3.33, 0.55, "Confirm est. cubicle counts from layouts.", { fs: 9.5 });
+    prop(s, 0.6, 6.05, 12.13, 0.6, "Quantities are proposed from NHG's ward descriptions; final counts are confirmed against the ward layouts and the on-site survey, and entered in the tender sheet's editable BLE quantity field.", { fs: 11 });
   }
 
   // ================= 16. GANTT =================
@@ -621,18 +656,18 @@ async function main() {
 
   // ================= 23. OPEN QUESTIONS =================
   {
-    const s = newSlide("Discussion", "Eight confirmations from ALPS and the hospitals will fix the final design, service levels and price", "Source: MONIT analysis of RFP documents and Master Agreement.",
-      "Use this slide to drive the meeting. Items 4-6 reflect inconsistencies between the RFP, Section 3.1 and the Master Agreement draft (spare parts 7 vs 10 years; deposit 14 vs 30 days; blank/draft service-level values).");
+    const s = newSlide("Discussion", "Eight confirmations from NHG, ALPS and the hospitals will fix the final design, service levels and price", "Source: MONIT analysis of RFP documents, NHG requirement table and Master Agreement.",
+      "Item 1: Michelle (NHG) will share the ward layouts and revise the tender sheet to make BLE quantities editable. Items 5-7 reflect inconsistencies between the RFP, Section 3.1 and the Master Agreement draft (spare parts 7 vs 10 years; deposit 14 vs 30 days; draft service-level values).");
     table(s, [
       ["#", "Confirmation needed", "Why it matters"],
-      ["1", "Wards, beds in scope and floor plans for each hospital", "Sets relay and sensor quantities"],
-      ["2", "2.4 GHz SSID available? Authentication type, VLAN, MAC approval, IT contact", "Relay radio is 2.4 GHz only"],
-      ["3", "Powered outlet (5 V USB) and mounting at relay positions", "Relay is USB powered, always-on"],
-      ["4", "Spare-parts period: 7 years from delivery or 10 years after end-of-life?", "Contract and service pricing"],
-      ["5", "Security deposit and insurance timing (14 days RFP; 30 days Schedule 2)", "Mobilisation plan"],
-      ["6", "Final service-level values (response, repair, loan unit, credits)", "SLA and maintenance price"],
-      ["7", "Nurse-call / EMR integration; data hosting location", "Scope and PDPA review"],
-      ["8", "Installation windows and infection-control rules per ward", "Rollout schedule"],
+      ["1", "Ward layouts for all three hospitals; editable BLE quantity in the tender sheet", "Fixes the gateway count per ward"],
+      ["2", "Cubicle counts for TTSH 5A, 7C and WH W62; KTPH Tower B single rooms", "Counts are estimated today"],
+      ["3", "Power: KTPH ceiling power specification; sockets in WH A41 and TTSH 13B corridors", "Mounting and gateway count"],
+      ["4", "2.4 GHz SSID, authentication type, VLAN, MAC approval, IT contact", "Relay radio is 2.4 GHz only"],
+      ["5", "Spare-parts period: 7 years from delivery or 10 years after end-of-life?", "Contract and service pricing"],
+      ["6", "Security deposit and insurance timing (14 days RFP; 30 days Schedule 2)", "Mobilisation plan"],
+      ["7", "Final service-level values (response, repair, loan unit, credits)", "SLA and maintenance price"],
+      ["8", "Barcode scanner (Zebra DS22) integration; data hosting location", "Scope and PDPA review"],
     ], 0.6, 1.85, 12.13, [0.6, 7.5, 4.03], { rowH: 0.52, fs: 11.5 });
   }
 

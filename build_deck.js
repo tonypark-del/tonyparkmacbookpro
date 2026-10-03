@@ -204,20 +204,29 @@ async function main() {
 
   // ================= 4. COMPANY =================
   {
-    const s = newSlide("1 · Company introduction", "MONIT is a healthcare-technology company focused on making incontinence care smarter and more dignified", "Source: MONIT. Replace placeholders with approved corporate facts.",
-      "Fill with approved company profile. Suggested content: founding year, HQ and Singapore entity/UEN (needed for the Master Agreement), team size, R&D focus, number of installed beds/countries, funding/partners.");
-    inp(s, 0.6, 1.85, 5.6, 1.2, "Company profile: founded, HQ, Singapore entity & UEN, ownership, headcount, mission statement.");
-    inp(s, 0.6, 3.25, 5.6, 1.4, "Core technology / IP: sensor hardware, AI detection algorithm, patents, R&D footprint.");
-    inp(s, 0.6, 4.85, 5.6, 1.5, "Healthcare footprint: countries, hospitals / care homes served, beds covered.");
-    const kp = [["[xx]", "Years in operation"], ["[xx]", "Sites / facilities live"], ["[xx]", "Beds monitored"], ["[xx]", "Countries"]];
-    kp.forEach(([n, l], i) => {
-      const x = 6.6 + (i % 2) * 3.1, y = 1.85 + Math.floor(i / 2) * 1.7;
-      s.addShape(pres.shapes.RECTANGLE, { x, y, w: 2.95, h: 1.5, fill: { color: C.background2 }, line: { type: "none" } });
-      T(s, n, { x: x + 0.2, y: y + 0.15, w: 2.5, h: 0.8, fontSize: 40, bold: true, color: C.accent3, fontFace: "Cambria" });
-      T(s, l, { x: x + 0.2, y: y + 0.95, w: 2.5, h: 0.4, fontSize: 12, color: C.accent4 });
+    const s = newSlide("1 · Company introduction", "MONIT, a Samsung spin-off, brings proven AIoT incontinence care from Korea and Japan to Singapore's hospitals", "Source: MONIT investor presentation (Apr 2026); company registration documents; KTPH Phase 1 trial report (Dec 2025).",
+      "Sources (user's Obsidian vault, synced to Google Drive): 모닛.md company hub; MONIT_IR_KO_260409; 회사 증명서류 모음 (SME certificate valid to 31 Mar 2027, Venture certificate valid to 23 Aug 2027); KTPH Smart Diaper Sensor - Trial in B76 (9 Jul - 24 Aug 2025, 15 patients). Deliberately left out: cumulative revenue and capital figures (IR data - include only if management approves disclosure), internal revenue commentary, pending commercial negotiations, personal phone numbers, and the IR statement of an 'enterprise contract with NHG hospitals' because the RFP is still open. Still to add: Singapore entity / UEN and headcount.");
+    const cards = [
+      ["Company", ["Digital-health company spun out of Samsung Electronics; founded April 2017 in Seoul", "Backed by SVIC (Samsung Venture Investment), IBK Capital and L&S Ventures", "Korean SME and Venture-certified (valid to 2027); CEO Tony (Dohyeong) Park"]],
+      ["Core technology", ["AIoT multi-sensor with AI pattern learning detects urination and defecation", "Works with any diaper brand; BLE gateway connects to the hospital Wi-Fi", "Korean patent registered; sensor holds KC, CE and Singapore certifications"]],
+      ["Healthcare footprint", ["Korea: NHIS-listed welfare product, sold through about 2,000 stores", "Japan: 14 Osaka care facilities contracted (about 1 million diapers, 2,000 sensing systems)", "Singapore: KTPH Phase 1 trial (2025), SingHealth Polyclinics and Vanguard Healthcare PoCs, IMH wound-care R&D"]],
+    ];
+    cards.forEach((c, i) => {
+      const y = 1.85 + i * 1.6;
+      s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y, w: 6.0, h: 1.5, fill: { color: C.background2 }, line: { type: "none" }, objectName: "Card " + c[0] });
+      T(s, c[0], { x: 0.8, y: y + 0.1, w: 5.6, h: 0.3, fontSize: 13, bold: true, color: C.text2 });
+      T(s, bullets(c[1]), { x: 0.8, y: y + 0.45, w: 5.65, h: 1.0, fontSize: 10 });
     });
-    s.addShape(pres.shapes.RECTANGLE, { x: 6.6, y: 5.3, w: 6.05, h: 1.05, fill: { color: C.text2 }, line: { type: "none" } });
-    T(s, "Why it matters to ALPS: a single accountable vendor for hardware, software, installation and service across three hospitals.", { x: 6.8, y: 5.3, w: 5.65, h: 1.05, fontSize: 13, color: C.background1, valign: "middle" });
+    const kp = [["2017", "Founded in Seoul as a Samsung Electronics spin-off"], ["14", "Osaka care facilities contracted in Japan"], ["~2,000", "Retail stores distributing in Korea"], ["15", "Patients in the KTPH Phase 1 trial (7 weeks, Ward B76)"]];
+    kp.forEach(([n, l], i) => {
+      const x = 6.95 + (i % 2) * 2.95, y = 1.85 + Math.floor(i / 2) * 1.6;
+      s.addShape(pres.shapes.RECTANGLE, { x, y, w: 2.8, h: 1.5, fill: { color: C.background2 }, line: { type: "none" } });
+      T(s, n, { x: x + 0.2, y: y + 0.12, w: 2.4, h: 0.75, fontSize: 38, bold: true, color: C.accent1, fontFace: "Cambria" });
+      T(s, l, { x: x + 0.2, y: y + 0.88, w: 2.45, h: 0.55, fontSize: 11, color: C.accent4 });
+    });
+    s.addShape(pres.shapes.RECTANGLE, { x: 6.95, y: 5.05, w: 5.78, h: 0.95, fill: { color: C.text2 }, line: { type: "none" } });
+    T(s, "Why it matters to KTPH and ALPS: one accountable vendor, already experienced at KTPH, for hardware, software, installation and service across three hospitals.", { x: 7.15, y: 5.05, w: 5.4, h: 0.95, fontSize: 12, color: C.background1, valign: "middle" });
+    inp(s, 6.95, 6.1, 5.78, 0.5, "Singapore entity / UEN and headcount to be added.", { fs: 10 });
   }
 
   // ================= 5. CERTIFICATIONS =================

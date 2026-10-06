@@ -100,10 +100,10 @@ async function main() {
   {
     const s = newSlide("Six phases take each hospital from Letter of Award to hand-over, each closed by a hospital sign-off",
       "Source: RFP Section 1 (mobilisation); Master Agreement Clauses 12, 23 and Schedule 2 (training, testing, acceptance, invoicing). Teal cells are MONIT proposals to be confirmed.",
-      "Timings marked 'MA' come from the Master Agreement; the 28-day mobilisation comes from the RFP. Durations in teal (survey window, install rate, 4-week hypercare) are MONIT proposals, not contract terms - confirm before submission. Security deposit timing differs (RFP 14 days vs MA Schedule 2 30 days): plan to the shorter.");
+      "Timings marked 'MA' come from the Master Agreement; the 28-day mobilisation comes from the RFP. Durations in teal (survey window, install rate, 4-week hypercare) are MONIT proposals, not contract terms - confirm before submission.");
     table(s, [
       ["Phase", "Key activities", "MONIT deliverable", "Hospital input", "Sign-off", "Timing"],
-      ["1  Mobilise", "Kick-off with ALPS and the three hospitals; project managers named; security deposit and insurance lodged", "Project plan and contact list", "Leads named for IT, nursing and facilities", "Plan agreed at kick-off", "Within 28 days of award (RFP)"],
+      ["1  Mobilise", "Kick-off with ALPS and the three hospitals; project managers named; insurance in place", "Project plan and contact list", "Leads named for IT, nursing and facilities", "Plan agreed at kick-off", "Within 28 days of award (RFP)"],
       ["2  Survey and design", "Review ward layouts; survey 2.4 GHz Wi-Fi and power points, including day rooms and corridors; fix the gateway count per ward", "Site design per ward: gateway positions and quantities", "Ward layouts, SSID and VLAN details, ward access", "Site design signed by hospital IT and ward", "[PROPOSED] Weeks 2–4"],
       ["3  Test and deliver", "Factory test of every sensor and gateway; kits labelled by hospital and ward; advance delivery notice", "Test records and delivery note", "Receiving point and storage", "Delivery accepted", "Before installation (MA)"],
       ["4  Install and commission", "Pilot ward first at each hospital, then ward by ward; gateways mounted to each hospital's rules; sensors registered; dashboard set up at the nurse station", "Commissioning checklist per ward", "Escorted access at agreed times; IT on call for network join", "Ward commissioning signed", "[PROPOSED] 1–2 wards per day"],
